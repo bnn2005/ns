@@ -1,10 +1,43 @@
 #include <iostream>
 using namespace std;
-int main() {
-    long long p=7919,q=1009,n=p*q,e=5,d=1596269,M=123,C=1,D=1;
-    for(int i=0;i<e;i++) C=(C*M)%n;
-    for(int i=0;i<d;i++) D=(D*C)%n;
-    cout<<"Original Message: "<<M;
-    cout<<"\nEncrypted Message: "<<C;
-    cout<<"\nDecrypted Message: "<<D;
+int power(int b,int e,int m){
+    int r=1;
+    while(e>0){
+        r=(r*b)%m;
+        e--;
+    }
+    return r;
+}
+int gcd(int a,int b){
+    while(b){
+        int t=a%b;
+        a=b;
+        b=t;
+    }
+    return a;
+    }
+int main(){
+int p=3,q=11;
+    int n=p*q;
+    int phi=(p-1)*(q-1);
+    int e,d,k=0;
+    int M=7;
+    for(e=2;e<phi;e++){
+        if(gcd(e,phi)==1)
+            break;
+    }
+    while(1){
+        d=(1+k*phi)/e;
+    if((1+k*phi)%e==0)
+            break;
+        k++;
+    }
+    int C=power(M,e,n);
+    int D=power(C,d,n);
+    cout<<"Original Message: "<<M<<endl;
+    cout<<"Public Key (e,n): ("<<e<<","<<n<<")"<<endl;
+    cout<<"Private Key (d,n): ("<<d<<","<<n<<")"<<endl;
+    cout<<"Encrypted Message: "<<C<<endl;
+    cout<<"Decrypted Message: "<<D<<endl;
+    return 0;
 }
