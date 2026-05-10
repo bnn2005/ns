@@ -1,0 +1,24 @@
+#include <iostream>
+using namespace std;
+
+int power(int b,int e,int m){
+    int r=1;
+    while(e){
+        if(e&1) r=(r*b)%m;
+        b=(b*b)%m;
+        e/=2;
+    }
+    return r;
+}
+
+int main() {
+    int p=61,q=53,n=p*q;
+    int e=17,d=2753;
+    int M=12;
+
+    int C=power(M,e,n);
+    int D=power(C,d,n);
+
+    cout<<"Encrypted: "<<C;
+    cout<<"\nDecrypted: "<<D;
+}
