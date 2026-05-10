@@ -1,0 +1,23 @@
+#include <iostream>
+using namespace std;
+
+string cipher(string t, int s) {
+    for(char &c : t) {
+        if(isupper(c))
+            c = (c-'A'+s)%26 + 'A';
+        else if(islower(c))
+            c = (c-'a'+s)%26 + 'a';
+    }
+    return t;
+}
+
+int main() {
+    string text = "Hello";
+    int shift = 3;
+
+    string enc = cipher(text, shift);
+    string dec = cipher(enc, 26-shift);
+
+    cout << "Encrypted: " << enc;
+    cout << "\nDecrypted: " << dec;
+}
