@@ -1,0 +1,10 @@
+#include <iostream>
+using namespace std;
+
+int main() {
+    string text="HELLO";
+    string key ="KEYKE";
+
+    for(int i=0;i<text.size();i++)
+        cout << char((text[i]+key[i])%26+'A');
+}
