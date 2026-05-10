@@ -1,0 +1,18 @@
+from Crypto.Cipher import AES
+from Crypto.Random import get_random_bytes
+from Crypto.Util.Padding import pad, unpad
+
+key = get_random_bytes(16)
+cipher = AES.new(key, AES.MODE_CBC)
+
+msg = b"HELLO"
+
+ct = cipher.encrypt(pad(msg,16))
+
+print("Encrypted:", ct)
+
+cipher2 = AES.new(key, AES.MODE_CBC, cipher.iv)
+
+pt = unpad(cipher2.decrypt(ct),16)
+
+print("Decrypted:", pt.decode())
