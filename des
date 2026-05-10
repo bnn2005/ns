@@ -1,0 +1,10 @@
+def xor(a,b):
+    return ''.join('0' if i==j else '1' for i,j in zip(a,b))
+
+pt  = "1010"
+key = "1100"
+
+cipher = xor(pt,key)
+
+print("Encrypted:", cipher)
+print("Decrypted:", xor(cipher,key))
