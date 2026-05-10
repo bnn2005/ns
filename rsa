@@ -1,24 +1,10 @@
 #include <iostream>
 using namespace std;
-
-int power(int b,int e,int m){
-    int r=1;
-    while(e){
-        if(e&1) r=(r*b)%m;
-        b=(b*b)%m;
-        e/=2;
-    }
-    return r;
-}
-
 int main() {
-    int p=61,q=53,n=p*q;
-    int e=17,d=2753;
-    int M=12;
-
-    int C=power(M,e,n);
-    int D=power(C,d,n);
-
-    cout<<"Encrypted: "<<C;
-    cout<<"\nDecrypted: "<<D;
+    long long p=7919,q=1009,n=p*q,e=5,d=1596269,M=123,C=1,D=1;
+    for(int i=0;i<e;i++) C=(C*M)%n;
+    for(int i=0;i<d;i++) D=(D*C)%n;
+    cout<<"Original Message: "<<M;
+    cout<<"\nEncrypted Message: "<<C;
+    cout<<"\nDecrypted Message: "<<D;
 }
