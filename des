@@ -1,10 +1,16 @@
-def xor(a,b):
-    return ''.join('0' if i==j else '1' for i,j in zip(a,b))
-
-pt  = "1010"
-key = "1100"
-
-cipher = xor(pt,key)
-
-print("Encrypted:", cipher)
-print("Decrypted:", xor(cipher,key))
+def encrypt(text, key, rounds=4):
+    for i in range(rounds):
+        temp = ""
+        for j in range(len(text)):
+            temp += chr((ord(text[j]) + ord(key[j % len(key)])) % 26 + 65)
+        text = temp[::-1]   # simple permutation
+        print(f"Round {i+1}: {text}")
+    return text
+text = "HELLOWORLD"
+key  = "KEY"
+print("Encryption:")
+cipher = encrypt(text, key)
+print("\nCipher Text:", cipher)
+print("\nDecryption:")
+plain = encrypt(cipher, key)
+print("\nPlain Text:", plain)
