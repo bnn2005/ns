@@ -1,6 +1,5 @@
 #include <iostream>
 using namespace std;
-
 string cipher(string t, int s) {
     for(char &c : t) {
         if(isupper(c))
@@ -10,14 +9,11 @@ string cipher(string t, int s) {
     }
     return t;
 }
-
 int main() {
     string text = "Hello";
     int shift = 3;
-
     string enc = cipher(text, shift);
     string dec = cipher(enc, 26-shift);
-
     cout << "Encrypted: " << enc;
     cout << "\nDecrypted: " << dec;
 }
