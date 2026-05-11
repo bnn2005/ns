@@ -1,10 +1,13 @@
 #include <iostream>
 using namespace std;
-
 int main() {
     string text="HELLO";
     string key ="KEYKE";
-
+    string enc="", dec="";
     for(int i=0;i<text.size();i++)
-        cout << char((text[i]+key[i])%26+'A');
+        enc += char((text[i]+key[i])%26+'A');
+    cout<<"Encrypted: "<<enc<<endl;
+    for(int i=0;i<enc.size();i++)
+        dec += char((enc[i]-key[i]+26)%26+'A');
+    cout<<"Decrypted: "<<dec;
 }
