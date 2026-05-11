@@ -1,29 +1,30 @@
-h=lambda s:''.join(f'{int(c,16):04b}'for c in s)
-b=lambda s:''.join(f'{int(s[i:i+4],2):X}'for i in range(0,len(s),4))
-x=lambda a,b:''.join('0'if i==j else'1'for i,j in zip(a,b))
-p=lambda k,a:''.join(k[i-1]for i in a)
-s=lambda k,n:k[n:]+k[:n]
-ip=[58,50,42,34,26,18,10,2,60,52,44,36,28,20,12,4,
-62,54,46,38,30,22,14,6,64,56,48,40,32,24,16,8,
-57,49,41,33,25,17,9,1,59,51,43,35,27,19,11,3,
-61,53,45,37,29,21,13,5,63,55,47,39,31,23,15,7]
-e=[32,1,2,3,4,5,4,5,6,7,8,9,8,9,10,11,12,13,
-12,13,14,15,16,17,22,23,24,25,24,25,26,27,
-28,29,28,29,30,31,32,1]
-def des(t,k,r=4):
-    kb=h(k);l,rk=kb[:28],kb[28:56];K=[]
-    for _ in range(r):
-        l,rk=s(l,1),s(rk,1)
-        K.append((l+rk)[:48])
-    t=p(h(t),ip);l,rk=t[:32],t[32:]
-    for i in range(r):
-        l,rk=rk,x(l,x(p(rk,e),K[i])[:32])
-        print(f'Round {i+1}: {b(l)}{b(rk)}')
-    return b(p(l+rk,ip[::-1]))
-pt="123456ABCD132536"
-k="AABB09182736CCDD"
-print("--- Encryption ---")
-c=des(pt,k)
-print("Cipher:",c)
-print("\n--- Decryption ---")
-print("Plain:",des(c,k))
+def xor(a, b):
+    result = ""
+    for i in range(len(a)):
+        if a[i] == b[i]:
+            result += "0"
+        else:
+            result += "1"
+    return result
+def round(right, key):
+    return xor(right, key)
+def encrypt(pt, key, rounds=4):
+    left = pt[:4]
+    right = pt[4:]
+    print("Initial:")
+    print("L0 =", left)
+    print("R0 =", right)
+    for i in range(rounds):
+        f = round(right, key)
+        new_right = xor(left, f)
+        left = right
+        right = new_right
+        print(f"\nRound {i+1}")
+        print("Left  =", left)
+        print("Right =", right)
+    cipher = left + right
+    return cipher
+plaintext = "10010010"
+key = "1110"
+cipher = encrypt(plaintext, key)
+print("\nCiphertext:", cipher)
